@@ -6,583 +6,47 @@
     <title>Aryan Agrawal - Cyber Portfolio</title>
     <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&family=Ubuntu+Mono&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
-    <style>
-        :root {
-            --neon-blue: #00f3ff;
-            --neon-purple: #bc13fe;
-            --dark-bg: #0a0a0f;
-        }
-
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
-        body {
-            background: var(--dark-bg);
-            font-family: 'Orbitron', sans-serif;
-            color: #fff;
-            overflow-x: hidden;
-            position: relative;
-            line-height: 1.6;
-        }
-
-        /* Matrix Background */
-        #matrix-canvas {
-            position: fixed;
-            top: 0;
-            left: 0;
-            z-index: -1;
-            opacity: 0.1;
-        }
-
-        /* Cyber Navigation */
-        .cyber-nav {
-            position: fixed;
-            right: 2rem;
-            top: 50%;
-            transform: translateY(-50%);
-            display: flex;
-            flex-direction: column;
-            gap: 1.5rem;
-            z-index: 1000;
-        }
-
-        .nav-item {
-            width: 50px;
-            height: 50px;
-            background: rgba(255, 255, 255, 0.05);
-            border-radius: 50%;
-            display: grid;
-            place-items: center;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            position: relative;
-        }
-
-        .nav-item:hover {
-            background: var(--neon-blue);
-            box-shadow: 0 0 15px var(--neon-blue);
-            transform: scale(1.2);
-        }
-
-        .nav-item::after {
-            content: attr(data-section);
-            position: absolute;
-            right: 60px;
-            background: rgba(0, 0, 0, 0.8);
-            padding: 5px 10px;
-            border-radius: 3px;
-            font-size: 0.8rem;
-            opacity: 0;
-            transition: opacity 0.3s;
-        }
-
-        .nav-item:hover::after {
-            opacity: 1;
-        }
-
-        /* Hero Section */
-        .hero {
-            min-height: 100vh;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            text-align: center;
-            padding: 2rem;
-        }
-
-        .avatar-container {
-            width: 280px;
-            height: 280px;
-            border-radius: 50%;
-            position: relative;
-            margin: 2rem 0;
-            clip-path: polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%);
-        }
-
-        .hologram-img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            position: relative;
-            z-index: 1;
-            border-radius: inherit;
-        }
-
-        .glow {
-            position: absolute;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(45deg, 
-                var(--neon-blue),
-                var(--neon-purple));
-            filter: blur(20px);
-            opacity: 0.4;
-            animation: pulse 3s infinite;
-        }
-
-        @keyframes pulse {
-            0%, 100% { opacity: 0.4; }
-            50% { opacity: 0.6; }
-        }
-
-        .hero h1 {
-            font-size: 3.5rem;
-            margin: 1rem 0;
-            text-shadow: 0 0 20px var(--neon-purple),
-                         0 0 30px var(--neon-blue);
-        }
-
-        .terminal-text {
-            font-family: 'Ubuntu Mono', monospace;
-            color: var(--neon-blue);
-            margin: 1rem 0;
-            font-size: 1.2rem;
-        }
-
-        .social-links {
-            display: flex;
-            gap: 2rem;
-            margin-top: 1.5rem;
-        }
-
-        .social-links a {
-            color: var(--neon-blue);
-            font-size: 2rem;
-            transition: all 0.3s ease;
-        }
-
-        .social-links a:hover {
-            color: var(--neon-purple);
-            transform: translateY(-3px);
-        }
-
-        /* About Section Styles */
-    .about {
-        position: relative;
-        padding: 4rem 2rem;
-        background: rgba(10, 10, 15, 0.95);
-        border-top: 2px solid var(--neon-purple);
-        border-bottom: 2px solid var(--neon-blue);
-    }
-
-    .cyber-border {
-        position: absolute;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        background: linear-gradient(
-            45deg,
-            transparent 49.9%,
-            var(--neon-blue) 49.9%,
-            var(--neon-blue) 50.1%,
-            transparent 50.1%
-        );
-        pointer-events: none;
-        animation: borderScan 4s linear infinite;
-    }
-
-    @keyframes borderScan {
-        0% { background-position: 0 0; }
-        100% { background-position: 100px 0; }
-    }
-
-    .cyber-grid {
-        display: grid;
-        grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-        gap: 2rem;
-        max-width: 1200px;
-        margin: 2rem auto;
-        position: relative;
-        z-index: 1;
-    }
-
-    .cyber-card {
-        background: rgba(20, 20, 30, 0.9);
-        padding: 2rem;
-        border-radius: 5px;
-        position: relative;
-        overflow: hidden;
-        transition: all 0.3s ease;
-        border: 1px solid var(--neon-blue);
-    }
-
-    .cyber-card:hover {
-        transform: translateY(-10px);
-        box-shadow: 0 0 30px var(--neon-purple);
-    }
-
-    .card-glow {
-        position: absolute;
-        width: 150%;
-        height: 150%;
-        background: radial-gradient(circle,
-            var(--neon-blue) 0%,
-            transparent 70%);
-        opacity: 0.2;
-        pointer-events: none;
-        transition: opacity 0.3s;
-    }
-
-    .cyber-card:hover .card-glow {
-        opacity: 0.4;
-    }
-
-    .cyber-card i {
-        font-size: 2.5rem;
-        color: var(--neon-blue);
-        margin-bottom: 1rem;
-    }
-
-    .cyber-card h3 {
-        color: var(--neon-purple);
-        margin-bottom: 1rem;
-        text-shadow: 0 0 15px var(--neon-purple);
-    }
-
-    .cyber-card p {
-        font-family: 'Ubuntu Mono', monospace;
-        line-height: 1.6;
-        font-size: 0.95rem;
-    }
-
-    .neon-text {
-        color: var(--neon-blue);
-        text-shadow: 0 0 10px var(--neon-blue);
-    }
-
-    .education {
-        padding: 4rem 2rem;
-        background: rgba(10, 10, 15, 0.95);
-        position: relative;
-    }
-
-    .edu-grid {
-        display: grid;
-        grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-        gap: 2rem;
-        max-width: 1200px;
-        margin: 0 auto;
-    }
-
-    .edu-card {
-        background: rgba(20, 20, 30, 0.9);
-        border: 1px solid var(--neon-purple);
-        border-radius: 10px;
-        padding: 1.5rem;
-        position: relative;
-        transition: transform 0.3s;
-    }
-
-    .edu-card:hover {
-        transform: translateY(-5px);
-        box-shadow: 0 0 25px var(--neon-blue);
-    }
-
-    .institution-header {
-        display: flex;
-        gap: 1rem;
-        align-items: center;
-        margin-bottom: 1.5rem;
-    }
-
-    .logo-container {
-        width: 60px;
-        height: 60px;
-        border: 2px solid var(--neon-blue);
-        border-radius: 50%;
-        background: rgba(255, 255, 255, 0.05);
-        display: grid;
-        place-items: center;
-    }
-
-    .nit-logo { /* Add actual logo as background */
-        background: url('nit-logo.png') center/contain no-repeat;
-    }
-
-    .brs-logo { /* Add actual logo as background */
-        background: url('brs-logo.png') center/contain no-repeat;
-    }
-
-    .detail-chip {
-        background: rgba(0, 243, 255, 0.1);
-        padding: 0.8rem;
-        margin: 0.5rem 0;
-        border-radius: 5px;
-        display: flex;
-        align-items: center;
-        gap: 0.8rem;
-    }
-
-    .activity-grid {
-        display: flex;
-        flex-wrap: wrap;
-        gap: 0.5rem;
-        margin-top: 1rem;
-    }
-
-    .activity-pill {
-        background: rgba(188, 19, 254, 0.1);
-        padding: 0.4rem 0.8rem;
-        border-radius: 20px;
-        font-size: 0.8rem;
-        border: 1px solid var(--neon-purple);
-    }
-
-    .experience {
-        padding: 4rem 2rem;
-        background: linear-gradient(
-            45deg, 
-            rgba(10, 10, 15, 0.95) 0%,
-            rgba(18, 5, 45, 0.9) 100%
-        );
-        position: relative;
-    }
-
-    .cyber-timeline {
-        position: relative;
-        max-width: 1200px;
-        margin: 3rem auto;
-    }
-
-    .timeline-core {
-        position: absolute;
-        left: 50%;
-        width: 4px;
-        height: 100%;
-        background: linear-gradient(
-            to bottom,
-            var(--neon-blue),
-            var(--neon-purple)
-        );
-        box-shadow: 0 0 15px var(--neon-purple);
-    }
-
-    .timeline-item {
-        display: flex;
-        margin: 4rem 0;
-        position: relative;
-        align-items: center;
-    }
-
-    .timeline-logo {
-        width: 60px;
-        height: 60px;
-        border: 2px solid var(--neon-blue);
-        border-radius: 50%;
-        position: absolute;
-        left: 50%;
-        transform: translateX(-50%);
-        background: rgba(0, 0, 0, 0.3);
-        z-index: 2;
-    }
-
-    .timeline-card {
-        width: 45%;
-        background: rgba(20, 20, 30, 0.95);
-        border: 1px solid var(--neon-purple);
-        padding: 1.5rem;
-        border-radius: 10px;
-        position: relative;
-        transition: all 0.3s ease;
-    }
-
-    .timeline-card:hover {
-        box-shadow: 0 0 25px var(--neon-blue);
-        transform: translateY(-5px);
-    }
-
-    .timeline-card::before {
-        content: '';
-        position: absolute;
-        top: 20px;
-        width: 0;
-        height: 0;
-        border-style: solid;
-    }
-
-    .timeline-item:nth-child(odd) .timeline-card {
-        margin-left: auto;
-    }
-
-    .timeline-item:nth-child(odd) .timeline-card::before {
-        right: -15px;
-        border-width: 10px 0 10px 15px;
-        border-color: transparent transparent transparent var(--neon-purple);
-    }
-
-    .timeline-item:nth-child(even) .timeline-card {
-        margin-right: auto;
-    }
-
-    .timeline-item:nth-child(even) .timeline-card::before {
-        left: -15px;
-        border-width: 10px 15px 10px 0;
-        border-color: transparent var(--neon-purple) transparent transparent;
-    }
-
-    .skill-grid {
-        display: flex;
-        flex-wrap: wrap;
-        gap: 0.5rem;
-        margin-top: 1rem;
-    }
-
-    .skill-pill {
-        background: rgba(0, 243, 255, 0.1);
-        padding: 0.4rem 0.8rem;
-        border-radius: 15px;
-        border: 1px solid var(--neon-blue);
-        font-size: 0.8rem;
-    }
-
-    .achievement-board {
-        background: rgba(188, 19, 254, 0.05);
-        padding: 1rem;
-        margin-top: 1rem;
-        border: 1px dashed var(--neon-purple);
-    }
-
-    .tedx-logo {
-        background: #e62b1e;
-        border-color: #ff2a1f !important;
-    }
-
-    .brs-logo { background: url(brs-logo.png) center/70% no-repeat; }
-    .project-ren-logo { background: url(project-ren-logo.png) center/contain no-repeat; }
-    .tedx-logo { background: url(tedx-logo.png) center/70% no-repeat #e62b1e; }
-
-    .project-ren-logo {
-        background: linear-gradient(45deg, #00f3ff, #bc13fe);
-    }
-
-    .achievement-chip {
-        display: flex;
-        gap: 1rem;
-        flex-wrap: wrap;
-    }
-
-    .achievement-chip span {
-        background: rgba(0, 243, 255, 0.1);
-        padding: 0.5rem 1rem;
-        border-radius: 20px;
-        border: 1px solid var(--neon-blue);
-    }
-
-    .skill-card-grid {
-        display: grid;
-        grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-        gap: 1.5rem;
-        max-width: 1200px;
-        margin: 0 auto;
-        padding: 2rem;
-    }
-    
-    .skill-card {
-        position: relative;
-        background: rgba(20, 20, 30, 0.9);
-        border: 1px solid var(--neon-blue);
-        border-radius: 10px;
-        padding: 1.5rem;
-        text-align: center;
-        transition: all 0.3s ease;
-        overflow: hidden;
-    }
-    
-    .card-hologram {
-        position: absolute;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        background: linear-gradient(
-            45deg,
-            var(--neon-blue),
-            var(--neon-purple)
-        );
-        opacity: 0.1;
-        z-index: 1;
-        transition: opacity 0.3s ease;
-    }
-    
-    .skill-card:hover {
-        transform: translateY(-5px);
-        box-shadow: 0 0 25px var(--neon-purple);
-        border-color: var(--neon-purple);
-    }
-    
-    .skill-card:hover .card-hologram {
-        opacity: 0.3;
-    }
-    
-    .skill-card i {
-        font-size: 2.5rem;
-        color: var(--neon-blue);
-        margin-bottom: 1rem;
-        position: relative;
-        z-index: 2;
-        transition: all 0.3s ease;
-    }
-    
-    .skill-card:hover i {
-        color: var(--neon-purple);
-        transform: scale(1.2);
-    }
-    
-    .skill-card h3 {
-        color: var(--neon-blue);
-        margin: 0.5rem 0;
-        position: relative;
-        z-index: 2;
-    }
-    
-    .skill-meta {
-        font-family: 'Ubuntu Mono', monospace;
-        font-size: 0.9rem;
-        color: var(--neon-blue);
-        line-height: 1.4;
-        opacity: 0.8;
-        position: relative;
-        z-index: 2;
-    }
-    
-    @media (max-width: 768px) {
-        .skill-card-grid {
-            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
-        }
-        
-        .skill-card {
-            padding: 1rem;
-        }
-        
-        .skill-card i {
-            font-size: 2rem;
-        }
-    }
-    </style>
+    <link rel="stylesheet" href="styles.css">
 </head>
 <body>
     <canvas id="matrix-canvas"></canvas>
     <div class="particles" id="particles"></div>
 
     <nav class="cyber-nav">
-        <div class="nav-item" data-section="home">⌂</div>
-        <div class="nav-item" data-section="projects">⌨</div>
-        <div class="nav-item" data-section="skills">⚙</div>
-        <div class="nav-item" data-section="contact">✉</div>
+        <a href="#hero" class="nav-item" data-section="Home">
+            <i class="fas fa-home"></i>
+        </a>
+        <a href="#about" class="nav-item" data-section="About">
+            <i class="fas fa-user"></i>
+        </a>
+        <a href="#education" class="nav-item" data-section="Education">
+            <i class="fas fa-graduation-cap"></i>
+        </a>
+        <a href="#experience" class="nav-item" data-section="Experience">
+            <i class="fas fa-briefcase"></i>
+        </a>
+        <a href="#skills" class="nav-item" data-section="Skills">
+            <i class="fas fa-cogs"></i>
+        </a>
+        <a href="#projects" class="nav-item" data-section="Projects">
+            <i class="fas fa-folder-open"></i>
+        </a>
+        <a href="#contact" class="nav-item" data-section="Contact">
+            <i class="fas fa-envelope"></i>
+        </a>
     </nav>
 
     <section class="hero" id="hero">
         <div class="avatar-container">
-            <img src="1920_dubaiconnect.jpg" alt="Aryan Agrawal" class="hologram-img">
+            <img src="wallpapersden.com_the-batman-hd-dc_3000x1688_2.jpg" alt="Aryan Agrawal" class="hologram-img">
             <div class="glow"></div>
         </div>
         <h1>Aryan Agrawal</h1>
-        <p class="terminal-text">> Software Developer | Tech Enthusiast</p>
+        <pre class="terminal-text"> 18 | Freshman @ National Institute Of Technology, Warangal | Coder |
+| Technology Enthusiast | Swimmer | 3x Hackathon Winner | Volunteer | TedEd Speaker</pre>
+        <div class="typing-container">
+            Aryan is a <span id="word"></span><span class="cursor"></span>
+        </div>
         <div class="social-links">
             <a href="https://linkedin.com/in/aryan-prashant-agrawal" target="_blank"><i class="fab fa-linkedin"></i></a>
             <a href="https://github.com/yourusername" target="_blank"><i class="fab fa-github"></i></a>
@@ -591,43 +55,72 @@
     </section>
 
     <section class="about" id="about">
-        <div class="cyber-border"></div>
         <h2 class="section-title">> ABOUT_ME</h2>
         <div class="cyber-grid">
-            <div class="cyber-card" data-category="code">
+            <!-- Card 1: Academic Foundation -->
+            <div class="cyber-card">
                 <div class="card-glow"></div>
-                <i class="fas fa-code"></i>
-                <h3>Code & Innovation</h3>
-                <p>Self-taught developer with multiple hackathon wins<br>
-                <span class="neon-text">"Most Creative Idea" Award</span><br>
-                1st Runner-Up Interschool Hackathon</p>
+                <i class="fas fa-laptop-code"></i>
+                <h3>Academic Foundation</h3>
+                <p>Passionate about Mathematics & Computer Science<br>
+                Self-taught programming expertise<br>
+                Regular participant in coding bootcamps<br>
+                Developed multiple functional applications</p>
             </div>
     
-            <div class="cyber-card" data-category="leadership">
+            <!-- Card 2: Hackathon Achievements -->
+            <div class="cyber-card">
                 <div class="card-glow"></div>
-                <i class="fas fa-users-cog"></i>
-                <h3>Leadership</h3>
-                <p>Led Student Council & Coding Club<br>
-                Organized school's first interschool hackathon<br>
-                Managed 50+ member teams</p>
+                <i class="fas fa-trophy"></i>
+                <h3>Hackathon Champion</h3>
+                <p>"Most Creative Idea" Award winner<br>
+                1st Runner-Up Interschool Hackathon<br>
+                Abu Dhabi Emirate recognition<br>
+                Competitive problem-solving specialist</p>
             </div>
     
-            <div class="cyber-card" data-category="world-record">
+            <!-- Card 3: Community Leadership -->
+            <div class="cyber-card">
+                <div class="card-glow"></div>
+                <i class="fas fa-users"></i>
+                <h3>Community Leadership</h3>
+                <p>Student Council Director (Senior Year)<br>
+                Coding Club Director (Junior Year)<br>
+                Organized first interschool hackathon<br>
+                Mentored 50+ student developers</p>
+            </div>
+    
+            <!-- Card 4: World Records -->
+            <div class="cyber-card">
                 <div class="card-glow"></div>
                 <i class="fas fa-globe"></i>
                 <h3>World Records</h3>
-                <p>2× Guinness World Record holder<br>
-                Large-scale knitting projects<br>
-                Supported NGOs & communities</p>
+                <p>Guinness World Record holder:<br>
+                - Largest hand-knitted blanket<br>
+                - Largest display of knitted hearts<br>
+                Distributed to NGOs across 2 continents</p>
             </div>
     
-            <div class="cyber-card" data-category="sports">
+            <!-- Card 5: Sports & Athletics -->
+            <div class="cyber-card">
                 <div class="card-glow"></div>
                 <i class="fas fa-swimmer"></i>
-                <h3>Athletics & Service</h3>
-                <p>Competitive swimmer & water polo<br>
-                Environmental volunteering<br>
-                Community organization work</p>
+                <h3>Sports Excellence</h3>
+                <p>Varsity swimming team member<br>
+                Competitive water polo player<br>
+                Multiple medalist in swimming events<br>
+                House sports team captain</p>
+            </div>
+    
+            <!-- Card 6: Social Contribution -->
+            <div class="cyber-card">
+                <div class="card-glow"></div>
+                <i class="fas fa-hands-helping"></i>
+                <h3>Social Contribution</h3>
+                <p>Registered UAE government volunteer<br>
+                Emirates Environmental Group member<br>
+                Community Development activist<br>
+                500+ hours social service logged</p>
             </div>
         </div>
     </section>
@@ -652,7 +145,33 @@
                     </div>
                     <div class="detail-chip">
                         <i class="fas fa-user-astronaut"></i>
-                        <span>Status: Freshman (2024 Entry)</span>
+                        <span>Event Management Team @ Music Club</span>
+                    </div>
+                    <div class="activity-grid">
+                        <span class="activity-pill">
+                            <i class="fas fa-calendar-alt"></i>
+                            E-Summit
+                        </span>
+                        <span class="activity-pill">
+                            <i class="fas fa-music"></i>
+                            Music Club
+                        </span>
+                        <span class="activity-pill">
+                            <i class="fas fa-microchip"></i>
+                            DSA
+                        </span>
+                        <span class="activity-pill">
+                            <i class="fas fa-code"></i>
+                            Web Programming
+                        </span>
+                        <span class="activity-pill">
+                            <i class="fas fa-robot"></i>
+                            AI Research
+                        </span>
+                        <span class="activity-pill">
+                            <i class="fas fa-cogs"></i>
+                            Robotics
+                        </span>
                     </div>
                 </div>
             </div>
@@ -669,19 +188,37 @@
                 <div class="edu-details">
                     <div class="detail-chip">
                         <i class="fas fa-graduation-cap"></i>
-                        <span>High School: Mathematics & Computer Science</span>
+                        <span>Grade 12 School Topper (PCMCS)</span>
                     </div>
                     <div class="detail-chip">
                         <i class="fas fa-trophy"></i>
-                        <span>Grade 12 Subjects: PCM, English, CS</span>
+                        <span>President of Student Council</span>
                     </div>
                     <div class="activity-grid">
-                        <span class="activity-pill">🏊♂️ Swimming Team</span>
-                        <span class="activity-pill">💻 Coding Club Lead</span>
-                        <span class="activity-pill">📢 TEDx Organizer</span>
-                        <span class="activity-pill">🎤 TedEd Speaker</span>
-                        <span class="activity-pill">👥 Student Council</span>
-                        <span class="activity-pill">🎉 Event Team</span>
+                        <span class="activity-pill">
+                            <i class="fas fa-users-cog"></i>
+                            Student Council
+                        </span>
+                        <span class="activity-pill">
+                            <i class="fas fa-comments"></i>
+                            TEDx Organizer
+                        </span>
+                        <span class="activity-pill">
+                            <i class="fas fa-swimmer"></i>
+                            Swimming
+                        </span>
+                        <span class="activity-pill">
+                            <i class="fas fa-laptop-code"></i>
+                            Coding Club
+                        </span>
+                        <span class="activity-pill">
+                            <i class="fas fa-leaf"></i>
+                            Environment
+                        </span>
+                        <span class="activity-pill">
+                            <i class="fas fa-trophy"></i>
+                            Hackathons
+                        </span>
                     </div>
                 </div>
             </div>
@@ -689,171 +226,183 @@
     </section>
     
     <section class="experience" id="experience">
-        <h2 class="section-title">> EXPERIENCE_TIMELINE</h2>
-        
-        <div class="cyber-timeline">
-            <div class="timeline-core"></div>
+    <h2 class="section-title">> EXPERIENCE_TIMELINE</h2>
     
-            <!-- Student Council President -->
-            <div class="timeline-item">
-                <div class="timeline-logo brs-logo"></div>
-                <div class="timeline-card">
-                    <div class="timeline-header">
-                        <h3>President of Student Council</h3>
-                        <div class="timeline-meta">
-                            <span class="neon-badge">2023 - Present</span>
-                            <span class="location">🌍 Abu Dhabi, UAE</span>
-                        </div>
+    <div class="cyber-timeline">
+        <div class="timeline-core"></div>
+
+        <!-- Student Council President -->
+        <div class="timeline-item">
+            <div class="timeline-logo student-council">
+                <i class="fas fa-users-crown"></i>
+            </div>
+            <div class="timeline-card">
+                <div class="timeline-header">
+                    <h3>President of Student Council</h3>
+                    <div class="timeline-meta">
+                        <span class="neon-badge">2023 - Present</span>
+                        <span class="location">🌍 Abu Dhabi, UAE</span>
                     </div>
-                    <div class="timeline-content">
-                        <div class="cyber-list">
-                            <div class="list-item">👑 Led "Student White Body" governance</div>
-                            <div class="list-item">🎪 Organized Spectrum 2023 mega-event</div>
-                            <div class="list-item">📱 Headed Tech & Advertising Team</div>
-                        </div>
-                        <div class="skill-grid">
-                            <span class="skill-pill">🏆 Leadership</span>
-                            <span class="skill-pill">🤝 Team Coordination</span>
-                            <span class="skill-pill">📅 Event Planning</span>
-                        </div>
+                </div>
+                <div class="timeline-content">
+                    <div class="cyber-list">
+                        <div class="list-item">👑 Led "Student White Body" governance</div>
+                        <div class="list-item">🎪 Organized Spectrum 2023 mega-event</div>
+                        <div class="list-item">📱 Headed Tech & Advertising Team</div>
+                    </div>
+                    <div class="skill-grid">
+                        <span class="skill-pill">🏆 Leadership</span>
+                        <span class="skill-pill">🤝 Team Coordination</span>
+                        <span class="skill-pill">📅 Event Planning</span>
                     </div>
                 </div>
             </div>
-    
-            <!-- Project R.E.N Founder -->
-            <div class="timeline-item">
-                <div class="timeline-logo project-ren-logo"></div>
-                <div class="timeline-card">
-                    <div class="timeline-header">
-                        <h3>Founder - Project R.E.N</h3>
-                        <div class="timeline-meta">
-                            <span class="neon-badge">2022 (4 mos)</span>
-                            <span class="location">🚀 National Hackathon</span>
-                        </div>
-                    </div>
-                    <div class="timeline-content">
-                        <div class="cyber-list">
-                            <div class="list-item">💡 UAE's 1st Inter-school Hackathon</div>
-                            <div class="list-item">⚡ Quicksilver Coding Challenges</div>
-                            <div class="list-item">📚 UNICEF Education Initiative</div>
-                        </div>
-                        <div class="achievement-board">
-                            <div class="achievement-chip">
-                                <span>📈 200+ Participants</span>
-                                <span>🏅 12 Final Projects</span>
-                                <span>🤝 5 Sponsors</span>
-                            </div>
-                        </div>
+        </div>
+
+        <!-- Project R.E.N Founder -->
+        <div class="timeline-item">
+            <div class="timeline-logo project-ren">
+                <i class="fas fa-rocket"></i>
+            </div>
+            <div class="timeline-card">
+                <div class="timeline-header">
+                    <h3>Founder - Project R.E.N</h3>
+                    <div class="timeline-meta">
+                        <span class="neon-badge">2022 (4 mos)</span>
+                        <span class="location">🚀 National Hackathon</span>
                     </div>
                 </div>
-            </div>
-    
-            <!-- Coding Club Director -->
-            <div class="timeline-item">
-                <div class="timeline-logo brs-logo"></div>
-                <div class="timeline-card">
-                    <div class="timeline-header">
-                        <h3>Director of Coding Club</h3>
-                        <div class="timeline-meta">
-                            <span class="neon-badge">2022 - 2023</span>
-                            <span class="location">👨💻 BRS, Abu Dhabi</span>
-                        </div>
+                <div class="timeline-content">
+                    <div class="cyber-list">
+                        <div class="list-item">💡 UAE's 1st Inter-school Hackathon</div>
+                        <div class="list-item">⚡ Quicksilver Coding Challenges</div>
+                        <div class="list-item">📚 UNICEF Education Initiative</div>
                     </div>
-                    <div class="timeline-content">
-                        <div class="cyber-list">
-                            <div class="list-item">🧠 Conceptualized Project R.E.N</div>
-                            <div class="list-item">🎨 AI & Digital Art Competitions</div>
-                            <div class="list-item">🤖 Scratch Programming Workshops</div>
-                        </div>
-                        <div class="skill-grid">
-                            <span class="skill-pill">📊 Event Management</span>
-                            <span class="skill-pill">👨🏫 Mentoring</span>
-                            <span class="skill-pill">🤖 Tech Education</span>
-                        </div>
-                    </div>
-                </div>
-            </div>
-    
-            <!-- TEDx Tech Head -->
-            <div class="timeline-item">
-                <div class="timeline-logo tedx-logo"></div>
-                <div class="timeline-card">
-                    <div class="timeline-header">
-                        <h3>TEDx Tech Lead</h3>
-                        <div class="timeline-meta">
-                            <span class="neon-badge">2022 (3 mos)</span>
-                            <span class="location">🎤 Space of Thought</span>
-                        </div>
-                    </div>
-                    <div class="timeline-content">
-                        <div class="cyber-list">
-                            <div class="list-item">🌐 Built Event Website from Scratch</div>
-                            <div class="list-item">📢 Managed Digital Campaigns</div>
-                            <div class="list-item">🚀 ISRO Collaboration</div>
-                        </div>
-                        <div class="achievement-board">
-                            <div class="achievement-chip">
-                                <span>🛰️ Chandrayaan-3 Director Interaction</span>
-                                <span>📈 500+ Website Visits</span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-    
-            <!-- Assistant Coding Club Director -->
-            <div class="timeline-item">
-                <div class="timeline-logo brs-logo"></div>
-                <div class="timeline-card">
-                    <div class="timeline-header">
-                        <h3>Assistant Coding Director</h3>
-                        <div class="timeline-meta">
-                            <span class="neon-badge">2021 - 2022</span>
-                            <span class="location">👨💻 BRS, Abu Dhabi</span>
-                        </div>
-                    </div>
-                    <div class="timeline-content">
-                        <div class="cyber-list">
-                            <div class="list-item">🐍 Python Fundamentals Workshops</div>
-                            <div class="list-item">🎮 Code Jams & Hackparade</div>
-                            <div class="list-item">📋 Meeting Agenda Preparation</div>
-                        </div>
-                        <div class="skill-grid">
-                            <span class="skill-pill">🐍 Python</span>
-                            <span class="skill-pill">👥 Teamwork</span>
-                            <span class="skill-pill">📝 Curriculum Design</span>
-                        </div>
-                    </div>
-                </div>
-            </div>
-    
-            <!-- Amber House Prefect -->
-            <div class="timeline-item">
-                <div class="timeline-logo brs-logo"></div>
-                <div class="timeline-card">
-                    <div class="timeline-header">
-                        <h3>Amber House Prefect</h3>
-                        <div class="timeline-meta">
-                            <span class="neon-badge">2018 - 2019</span>
-                            <span class="location">🏠 House Leadership</span>
-                        </div>
-                    </div>
-                    <div class="timeline-content">
-                        <div class="cyber-list">
-                            <div class="list-item">🏆 Inter-house Competitions</div>
-                            <div class="list-item">🤝 Teacher Coordination</div>
-                            <div class="list-item">🎯 Student Participation</div>
-                        </div>
-                        <div class="skill-grid">
-                            <span class="skill-pill">🤝 Communication</span>
-                            <span class="skill-pill">🏅 Team Spirit</span>
-                            <span class="skill-pill">📋 Administration</span>
+                    <div class="achievement-board">
+                        <div class="achievement-chip">
+                            <span>📈 200+ Participants</span>
+                            <span>🏅 12 Final Projects</span>
+                            <span>🤝 5 Sponsors</span>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-    </section>
+
+        <!-- Coding Club Director -->
+        <div class="timeline-item">
+            <div class="timeline-logo coding-club">
+                <i class="fas fa-laptop-code"></i>
+            </div>
+            <div class="timeline-card">
+                <div class="timeline-header">
+                    <h3>Director of Coding Club</h3>
+                    <div class="timeline-meta">
+                        <span class="neon-badge">2022 - 2023</span>
+                        <span class="location">👨💻 BRS, Abu Dhabi</span>
+                    </div>
+                </div>
+                <div class="timeline-content">
+                    <div class="cyber-list">
+                        <div class="list-item">🧠 Conceptualized Project R.E.N</div>
+                        <div class="list-item">🎨 AI & Digital Art Competitions</div>
+                        <div class="list-item">🤖 Scratch Programming Workshops</div>
+                    </div>
+                    <div class="skill-grid">
+                        <span class="skill-pill">📊 Event Management</span>
+                        <span class="skill-pill">👨🏫 Mentoring</span>
+                        <span class="skill-pill">🤖 Tech Education</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- TEDx Tech Head -->
+        <div class="timeline-item">
+            <div class="timeline-logo tedx">
+                <i class="fab fa-reddit-alien"></i>
+            </div>
+            <div class="timeline-card">
+                <div class="timeline-header">
+                    <h3>TEDx Tech Lead</h3>
+                    <div class="timeline-meta">
+                        <span class="neon-badge">2022 (3 mos)</span>
+                        <span class="location">🎤 Space of Thought</span>
+                    </div>
+                </div>
+                <div class="timeline-content">
+                    <div class="cyber-list">
+                        <div class="list-item">🌐 Built Event Website from Scratch</div>
+                        <div class="list-item">📢 Managed Digital Campaigns</div>
+                        <div class="list-item">🚀 ISRO Collaboration</div>
+                    </div>
+                    <div class="achievement-board">
+                        <div class="achievement-chip">
+                            <span>🛰️ Chandrayaan-3 Director Interaction</span>
+                            <span>📈 500+ Website Visits</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Assistant Coding Club Director -->
+        <div class="timeline-item">
+            <div class="timeline-logo assistant-director">
+                <i class="fas fa-hands-helping"></i>
+            </div>
+            <div class="timeline-card">
+                <div class="timeline-header">
+                    <h3>Assistant Coding Director</h3>
+                    <div class="timeline-meta">
+                        <span class="neon-badge">2021 - 2022</span>
+                        <span class="location">👨💻 BRS, Abu Dhabi</span>
+                    </div>
+                </div>
+                <div class="timeline-content">
+                    <div class="cyber-list">
+                        <div class="list-item">🐍 Python Fundamentals Workshops</div>
+                        <div class="list-item">🎮 Code Jams & Hackparade</div>
+                        <div class="list-item">📋 Meeting Agenda Preparation</div>
+                    </div>
+                    <div class="skill-grid">
+                        <span class="skill-pill">🐍 Python</span>
+                        <span class="skill-pill">👥 Teamwork</span>
+                        <span class="skill-pill">📝 Curriculum Design</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Amber House Prefect -->
+        <div class="timeline-item">
+            <div class="timeline-logo house-prefact">
+                <i class="fas fa-shield-alt"></i>
+            </div>
+            <div class="timeline-card">
+                <div class="timeline-header">
+                    <h3>Amber House Prefect</h3>
+                    <div class="timeline-meta">
+                        <span class="neon-badge">2018 - 2019</span>
+                        <span class="location">🏠 House Leadership</span>
+                    </div>
+                </div>
+                <div class="timeline-content">
+                    <div class="cyber-list">
+                        <div class="list-item">🏆 Inter-house Competitions</div>
+                        <div class="list-item">🤝 Teacher Coordination</div>
+                        <div class="list-item">🎯 Student Participation</div>
+                    </div>
+                    <div class="skill-grid">
+                        <span class="skill-pill">🤝 Communication</span>
+                        <span class="skill-pill">🏅 Team Spirit</span>
+                        <span class="skill-pill">📋 Administration</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
     
     <section class="skills" id="skills">
         <h2 class="section-title">> SKILL_MATRIX</h2>
@@ -932,118 +481,250 @@
         </div>
     </section>
     
-
-    <script>
-        // Matrix Rain Effect
-        const matrixCanvas = document.getElementById('matrix-canvas');
-        const mtx = matrixCanvas.getContext('2d');
-        matrixCanvas.width = window.innerWidth;
-        matrixCanvas.height = window.innerHeight;
+    <section class="projects" id="projects">
+        <h2 class="section-title">> PROJECT_SHOWCASE</h2>
         
-        const chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789@#$%^&*';
-        const matrixDrops = Array(Math.floor(matrixCanvas.width / 20)).fill(1);
-
-        function drawMatrix() {
-            mtx.fillStyle = 'rgba(0, 0, 0, 0.05)';
-            mtx.fillRect(0, 0, matrixCanvas.width, matrixCanvas.height);
-            mtx.fillStyle = '#0F0';
-            mtx.font = '15px monospace';
-
-            matrixDrops.forEach((drop, i) => {
-                const text = chars[Math.floor(Math.random() * chars.length)];
-                mtx.fillText(text, i * 20, drop * 20);
-                matrixDrops[i] = drop > matrixCanvas.height/20 || Math.random() > 0.95 ? 0 : drop + 1;
-            });
-        }
-        setInterval(drawMatrix, 50);
-
-        // Floating Particles
-        const particleCanvas = document.getElementById('particles');
-        const ptx = particleCanvas.getContext('2d');
-        particleCanvas.width = window.innerWidth;
-        particleCanvas.height = window.innerHeight;
-
-        class Particle {
-            constructor() {
-                this.x = Math.random() * particleCanvas.width;
-                this.y = Math.random() * particleCanvas.height;
-                this.velocity = { x: -1 + Math.random() * 2, y: -1 + Math.random() * 2 };
-                this.radius = Math.random() * 2;
-            }
-        }
-
-        const particles = Array(100).fill().map(() => new Particle());
-
-        function animateParticles() {
-            ptx.clearRect(0, 0, particleCanvas.width, particleCanvas.height);
-            particles.forEach(particle => {
-                particle.x += particle.velocity.x;
-                particle.y += particle.velocity.y;
-                
-                ptx.beginPath();
-                ptx.arc(particle.x, particle.y, particle.radius, 0, Math.PI * 2);
-                ptx.fillStyle = 'rgba(0, 243, 255, 0.5)';
-                ptx.fill();
-
-                if(particle.x < 0 || particle.x > particleCanvas.width) particle.velocity.x *= -1;
-                if(particle.y < 0 || particle.y > particleCanvas.height) particle.velocity.y *= -1;
-            });
-            requestAnimationFrame(animateParticles);
-        }
-        animateParticles();
-
-        // Add card hover effects
-    document.querySelectorAll('.cyber-card').forEach(card => {
-        card.addEventListener('mousemove', (e) => {
-            const rect = card.getBoundingClientRect();
-            const x = e.clientX - rect.left;
-            const y = e.clientY - rect.top;
-            card.style.setProperty('--mouse-x', `${x}px`);
-            card.style.setProperty('--mouse-y', `${y}px`);
-        });
-    });
-
-    // Add scroll animation
-    const observer = new IntersectionObserver((entries) => {
-        entries.forEach(entry => {
-            if(entry.isIntersecting) {
-                entry.target.style.opacity = 1;
-                entry.target.style.transform = 'translateY(0)';
-            }
-        });
-    });
-
-    document.querySelectorAll('.cyber-card').forEach(card => {
-        card.style.opacity = 0;
-        card.style.transform = 'translateY(50px)';
-        card.style.transition = 'all 0.6s cubic-bezier(0.4, 0, 0.2, 1)';
-        observer.observe(card);
-    });
-
-    // Add timeline animations
-    const timelineItems = document.querySelectorAll('.timeline-item');
+        <div class="project-grid">
+            <!-- Project 1 - Annadanam -->
+            <div class="project-card">
+                <div class="project-thumbnail">
+                    <img src="Screenshot 2025-03-21 061253.jpg" alt="Annadanam Project Preview">
+                    <div class="thumbnail-overlay">
+                        <div class="button-group">
+                            <a href="https://annadanam-live.com" class="project-link" target="_blank" rel="noopener">
+                                <i class="fas fa-external-link-alt"></i> Live Demo
+                            </a>
+                            <a href="https://github.com/yourusername/annadanam" class="project-link github-link" target="_blank" rel="noopener">
+                                <i class="fab fa-github"></i> GitHub
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                <div class="project-info">
+                    <h3>Annadanam</h3>
+                    <p class="project-excerpt">Food security platform connecting donors with NGOs</p>
+                    <div class="project-tags">
+                        <span>Python</span>
+                        <span>AI/ML</span>
+                        <span>SDG #2</span>
+                    </div>
+                </div>
+            </div>
     
-    const timelineObserver = new IntersectionObserver((entries) => {
-        entries.forEach(entry => {
-            if(entry.isIntersecting) {
-                entry.target.style.opacity = 1;
-                entry.target.style.transform = 'translateX(0)';
-            }
-        });
-    }, { threshold: 0.3 });
-
-    timelineItems.forEach(item => {
-        item.style.opacity = 0;
-        if(item.querySelector('.timeline-card').classList.contains('left')) {
-            item.style.transform = 'translateX(-50px)';
-        } else {
-            item.style.transform = 'translateX(50px)';
-        }
-        item.style.transition = 'all 0.6s ease';
-        timelineObserver.observe(item);
-    });
-
+            <!-- Project 2 - Spectrum 2023 -->
+            <div class="project-card">
+                <div class="project-thumbnail">
+                    <img src="Screenshot 2025-03-21 061411.jpg" alt="Spectrum 2023 Preview">
+                    <div class="thumbnail-overlay">
+                        <div class="button-group">
+                            <a href="https://spectrum-event.com" class="project-link" target="_blank" rel="noopener">
+                                <i class="fas fa-external-link-alt"></i> Event Site
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                <div class="project-info">
+                    <h3>Spectrum 2023</h3>
+                    <p class="project-excerpt">Charity event management platform</p>
+                    <div class="project-tags">
+                        <span>Web Dev</span>
+                        <span>UX Design</span>
+                        <span>JavaScript</span>
+                    </div>
+                </div>
+            </div>
     
-    </script>
+            <!-- Project 3 - TEDx Youth -->
+            <div class="project-card">
+                <div class="project-thumbnail">
+                    <img src="Screenshot 2025-03-21 061509.jpg" alt="TEDx Youth Preview">
+                    <div class="thumbnail-overlay">
+                        <div class="button-group">
+                            <a href="https://tedx-brs.com" class="project-link" target="_blank" rel="noopener">
+                                <i class="fas fa-external-link-alt"></i> Event Site
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                <div class="project-info">
+                    <h3>TEDx Youth @ BRS</h3>
+                    <p class="project-excerpt">Official TEDx event platform</p>
+                    <div class="project-tags">
+                        <span>CMS</span>
+                        <span>Digital Marketing</span>
+                        <span>WordPress</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="contact" id="contact">
+        <h2 class="section-title">> CONTACT_MATRIX</h2>
+        
+        <div class="contact-grid">
+            <!-- Main Contact Form -->
+            <div class="form-container">
+                <div class="cyber-card contact-form">
+                    <form id="contactForm">
+                        <div class="input-group">
+                            <input type="text" id="name" class="cyber-input" placeholder=" " required>
+                            <label class="input-label">IDENTITY_STRING</label>
+                            <div class="cyber-line"></div>
+                        </div>
+                        
+                        <div class="input-group">
+                            <input type="email" id="email" class="cyber-input" placeholder=" " required>
+                            <label class="input-label">NETWORK_ADDRESS</label>
+                            <div class="cyber-line"></div>
+                        </div>
+                        
+                        <div class="input-group">
+                            <textarea id="message" class="cyber-input cyber-textarea" placeholder=" " required></textarea>
+                            <label class="input-label">MESSAGE_PAYLOAD</label>
+                            <div class="cyber-line"></div>
+                        </div>
+                        
+                        <button type="button" onclick="sendMessage()" class="cyber-button">
+                            <span class="btn-text">INITIATE_TRANSMISSION</span>
+                            <div class="btn-glitch"></div>
+                        </button>
+                        
+                        <div class="transmission-status" id="statusMessage"></div>
+                    </form>
+                </div>
+            </div>
+    
+            <!-- Collapsible Info Cards -->
+            <div class="info-cards-container">
+                <!-- Location Card -->
+                <div class="cyber-card compact-card" onclick="toggleCard(this)">
+                    <div class="card-header">
+                        <i class="fas fa-map-marker-alt"></i>
+                        <h4>LOCATION_NODES</h4>
+                        <div class="card-arrow">▼</div>
+                    </div>
+                    <div class="card-details">
+                        <p>> Abu Dhabi, UAE</p>
+                        <p>> Warangal, IN</p>
+                    </div>
+                </div>
+    
+                <!-- Contact Card -->
+                <div class="cyber-card compact-card" onclick="toggleCard(this)">
+                    <div class="card-header">
+                        <i class="fas fa-transmission"></i>
+                        <h4>COMM_LINKS</h4>
+                        <div class="card-arrow">▼</div>
+                    </div>
+                    <div class="card-details">
+                        <p>> +971 50 123 4567</p>
+                        <p>> +91 98765 43210</p>
+                    </div>
+                </div>
+    
+                <!-- Social Card -->
+                <div class="cyber-card compact-card" onclick="toggleCard(this)">
+                    <div class="card-header">
+                        <i class="fas fa-share-alt"></i>
+                        <h4>SOCIAL_NETWORKS</h4>
+                        <div class="card-arrow">▼</div>
+                    </div>
+                    <div class="card-details social-links">
+                        <a href="#" class="social-btn linkedin">
+                            <i class="fab fa-linkedin"></i>
+                        </a>
+                        <a href="#" class="social-btn github">
+                            <i class="fab fa-github"></i>
+                        </a>
+                        <a href="#" class="social-btn email">
+                            <i class="fas fa-envelope"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer class="cyber-footer">
+        <div class="footer-grid">
+            <!-- Contact Protocol -->
+            <div class="footer-section">
+                <h3 class="footer-heading">> CONTACT_PROTOCOL</h3>
+                <ul class="footer-list">
+                    <li><i class="fas fa-map-marker-alt"></i> Abu Dhabi, UAE</li>
+                    <li><i class="fas fa-phone-alt"></i> +971 50 123 4567</li>
+                    <li><i class="fas fa-envelope"></i> contact@domain.com</li>
+                </ul>
+            </div>
+    
+            <!-- Navigation Matrix -->
+            <div class="footer-section">
+                <h3 class="footer-heading">> NAVIGATION_MATRIX</h3>
+                <ul class="footer-list">
+                    <li><a href="#hero"><i class="fas fa-chevron-right"></i> Home Sector</a></li>
+                    <li><a href="#about"><i class="fas fa-chevron-right"></i> About Protocol</a></li>
+                    <li><a href="#education"><i class="fas fa-chevron-right"></i> Education Hub</a></li>
+                    <li><a href="#experience"><i class="fas fa-chevron-right"></i> Experience Core</a></li>
+                    <li><a href="#skills"><i class="fas fa-chevron-right"></i> Skill Matrix</a></li>
+                    <li><a href="#projects"><i class="fas fa-chevron-right"></i> Project Archive</a></li>
+                    <li><a href="#contact"><i class="fas fa-chevron-right"></i> Contact Node</a></li>
+                </ul>
+            </div>
+    
+            <!-- Social Grid -->
+            <div class="footer-section">
+                <h3 class="footer-heading">> SOCIAL_GRID</h3>
+                <div class="social-grid">
+                    <a href="#" class="social-icon github">
+                        <i class="fab fa-github"></i>
+                        <span class="social-text">GitHub</span>
+                    </a>
+                    <a href="#" class="social-icon linkedin">
+                        <i class="fab fa-linkedin"></i>
+                        <span class="social-text">LinkedIn</span>
+                    </a>
+                    <a href="#" class="social-icon email">
+                        <i class="fas fa-envelope"></i>
+                        <span class="social-text">Email</span>
+                    </a>
+                </div>
+            </div>
+    
+            <!-- System Status -->
+            <div class="footer-section">
+                <h3 class="footer-heading">> SYSTEM_STATUS</h3>
+                <div class="status-indicators">
+                    <div class="status-item online">
+                        <div class="status-led"></div>
+                        Portfolio: Online
+                    </div>
+                    <div class="status-item secure">
+                        <div class="status-led"></div>
+                        Security: Encrypted
+                    </div>
+                </div>
+            </div>
+        </div>
+    
+        <!-- Terminal Footer -->
+        <div class="terminal-footer">
+            <div class="scan-line"></div>
+            <div class="footer-copyright" style="text-align: center;">
+                > © 2025 Aryan Agrawal. All systems operational.
+                <br>Made with ❤️ by Aryan
+            </div>
+            <div class="powered-by">
+                <span>Powered by:</span>
+                <div class="tech-logos">
+                    <i class="fab fa-html5"></i>
+                    <i class="fab fa-css3-alt"></i>
+                    <i class="fab fa-js"></i>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script type="text/Javascript" src="script.js"></script>
 </body>
 </html>
