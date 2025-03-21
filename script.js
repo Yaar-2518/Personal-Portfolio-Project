@@ -103,42 +103,6 @@
         }
     });
 
-
-    // Floating Particles
-    const particleCanvas = document.getElementById('particles');
-    const ptx = particleCanvas.getContext('2d');
-    particleCanvas.width = window.innerWidth;
-    particleCanvas.height = window.innerHeight;
-
-    class Particle {
-        constructor() {
-            this.x = Math.random() * particleCanvas.width;
-            this.y = Math.random() * particleCanvas.height;
-            this.velocity = { x: -1 + Math.random() * 2, y: -1 + Math.random() * 2 };
-            this.radius = Math.random() * 2;
-        }
-    }
-
-    const particles = Array(100).fill().map(() => new Particle());
-
-    function animateParticles() {
-        ptx.clearRect(0, 0, particleCanvas.width, particleCanvas.height);
-        particles.forEach(particle => {
-            particle.x += particle.velocity.x;
-            particle.y += particle.velocity.y;
-            
-            ptx.beginPath();
-            ptx.arc(particle.x, particle.y, particle.radius, 0, Math.PI * 2);
-            ptx.fillStyle = 'rgba(0, 243, 255, 0.5)';
-            ptx.fill();
-
-            if(particle.x < 0 || particle.x > particleCanvas.width) particle.velocity.x *= -1;
-            if(particle.y < 0 || particle.y > particleCanvas.height) particle.velocity.y *= -1;
-        });
-        requestAnimationFrame(animateParticles);
-    }
-    animateParticles();
-
     // Add card hover effects
 document.querySelectorAll('.cyber-card').forEach(card => {
     card.addEventListener('mousemove', (e) => {
