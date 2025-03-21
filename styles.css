@@ -430,6 +430,7 @@ background: url('nitwlogo.jpg') center/contain no-repeat;
 
 .brs-logo {
 background: url('brslogo.jpg') center/contain no-repeat;
+border-radius: 50%;
 }
 
 .detail-chip {
@@ -607,7 +608,7 @@ background: #e62b1e;
 border-color: #ff2a1f !important;
 }
 
-.brs-logo { background: url(brslogo.jpg) center/70% no-repeat; }
+.brs-logo { background: url(brslogo.jpg) center/70% no-repeat; border-radius: 50%;}
 .project-ren-logo { background: url(project-ren-logo.png) center/contain no-repeat; }
 .tedx-logo { background: url(tedx-logo.png) center/70% no-repeat #e62b1e; }
 
